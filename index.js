@@ -1,10 +1,13 @@
 const express = require('express');
 const conexionCitas = require('./conexion/conexionCitas');
-const conexionServicios = require("./conexion/conexionServicios")
+const conexionServicios = require("./conexion/conexionServicios");
+const conexionUsuarios = require("./conexion/conexionUsuarios")
 const app = express();
+const cors = require('cors');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json({extended:true}))
+app.use(cors());
 
 app.get('/', (request, response) => {
     response.send('<h1>Este es el proyecto taller carranza</h1><p>probando llamadas a la</p>')
@@ -43,10 +46,30 @@ app.post('/servicios/actualizar', (request, response) => {
     conexionServicios.actualizar(request.body)
     response.json("Datos actualizados")
 })
-app.get('/servicios/eliminar', (request, response) => {
+app.get('/servicios/eliminar/:id', (request, response) => {
     conexionCitas.eliminar(request.params.id )
     console.log(request.params.id )
     response.send('dato eliminado exitosamente')
 })
 
-app.listen(6000)
+//----------------------usuarios-------------------------
+
+app.get('/usuarios/ver', async(request, response) => {
+    const usuarios = await conexionUsuarios.mostrar()
+    response.json(usuarios)
+})
+app.post('/usuarios/guardar', (request, response) => {
+    conexionUsuarios.crear(request.body)
+    response.json("datos guardados de forma exitosa")
+})
+app.post('/usuarios/actualizar', (request, response) => {
+    conexionUsuarios.actualizar(request.body)
+    response.json("Datos actualizados")
+})
+app.get('/usuarios/eliminar/:id', (request, response) => {
+    conexionUsuarios.eliminar(request.params.id )
+    console.log(request.params.id )
+    response.send('dato eliminado exitosamente')
+})
+
+app.listen(4001)

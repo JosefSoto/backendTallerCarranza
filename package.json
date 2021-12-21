@@ -1,0 +1,19 @@
+{
+  "name": "carranzabackend",
+  "version": "1.0.0",
+  "description": "backend del proyecto taller carranza ciclo 4 minsion tic",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jose soto",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mongoose": "^6.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
